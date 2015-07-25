@@ -15,7 +15,7 @@ package org.unitec.maven;
 @RequestMapping("/")
 public class ControladorProducto {
  public class ControladoProducto{
-     @RequestMapping(value="/producto/{nombre}/{costo}/{unidades}"method=RequestMethod.POST, headers=["text/html"]}
+     @RequestMapping(value="/producto/{nombre}/{costo}/{unidades}"method=RequestMethod.POST, headers=["Accept=text/html"]}
  @ResponseBody String guardar(@PathVariable String nombre,@PathVariable Float costo,@ PathVariable Integer Unidades) throws Exception{
 Producto p=new Producto();
 p.setCosto(costo);
