@@ -5,6 +5,13 @@
  */
 package org.unitec.maven;
 
+import java.util.ArrayList;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
 
 
 /**
@@ -12,13 +19,39 @@ package org.unitec.maven;
  * @author T-107
  */
 public class DAOProducto {
-    //Tendriamos que crear algo parecido a lo del parcial
-    public static void guardar(Producto p)throws Exception{
-        SessionFactory fac= HibernatUtilidades.getSessionFactory();
-        Session ses=fac.openSession();
-        Transaction tranza=ses.beginTransaction;
-        //guardamos
-        ses.save(p);
-        ses.close();
+    private SessionFactory fac;
+    private Session ses;
+    private Transaction tranza;
+    //Esta clase hara todas las operaciones de sql relacionados a
+    //
+    //
+    public DAOProducto(){
+        fac= HibernatUtilidades.getSessionFactory();
+        ses=fac.openSession();
+        tranza=ses.beginTransaction();
     }
+public void cerrarSesion(){
+    tranza.commit();
+    ses.close();
+}
+public void guardar (Producto g)throws Exception{
+    ses.save(g);
+    cerrarSesion();
+    }
+public ArrayList<Producto> buscarTodos()throws Exception{
+    Criteria cri= ses.createCriteria(Producto.class);
+    ArrayList<Producto> gastos=(ArrayList<Producto>) cri.list();
+    cerrarSesion();
+    return gastos;
+}
+public Producto buscarPorId(Integer id)throws Exception{
+    Criteria cri=ses.createCriteria(Producto.class);
+    Producto gastos=(Producto) cri.add(Restrictions.idEq(id)).uniqueResult();
+    cerrarSesion();
+    return gastos;
+}
+public void actualizar(Producto g)throws Exception{
+    ses.update(g);
+    cerrarSesion();
+}
 }
