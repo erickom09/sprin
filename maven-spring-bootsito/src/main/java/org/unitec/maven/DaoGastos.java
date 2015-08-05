@@ -11,18 +11,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-/**
- *
- * @author T-107
- */
-public class DaoTarjeta {
-     private SessionFactory fac;
+
+public class DaoGastos {
+         private SessionFactory fac;
     private Session ses;
     private Transaction tranza;
     //Esta clase hara todas las operaciones de sql relacionados a
     //
     //
-    public DaoTarjeta(){
+    public DaoGastos(){
         fac= HibernatUtilidades.getSessionFactory();
         ses=fac.openSession();
         tranza=ses.beginTransaction();
@@ -31,27 +28,27 @@ public void cerrarSesion(){
     tranza.commit();
     ses.close();
 }
-public void guardar (Tarjeta g)throws Exception{
+public void guardar (Gastos g)throws Exception{
     ses.save(g);
     cerrarSesion();
     }
-public ArrayList<Tarjeta> buscarTodos()throws Exception{
-    Criteria cri= ses.createCriteria(Producto.class);
-    ArrayList<Tarjeta> tarjetas=(ArrayList<Tarjeta>) cri.list();
+public ArrayList<Gastos> buscarTodos()throws Exception{
+    Criteria cri= ses.createCriteria(Gastos.class);
+    ArrayList<Gastos> gasto=(ArrayList<Gastos>) cri.list();
     cerrarSesion();
-    return tarjetas;
+    return gasto;
 }
-public Tarjeta buscarPorId(Integer id)throws Exception{
-    Criteria cri=ses.createCriteria(Tarjeta.class);
-    Tarjeta tarjetas=(Tarjeta) cri.add(Restrictions.idEq(id)).uniqueResult();
+public Gastos buscarPorId(Integer id)throws Exception{
+    Criteria cri=ses.createCriteria(Gastos.class);
+    Gastos gasto=(Gastos) cri.add(Restrictions.idEq(id)).uniqueResult();
     cerrarSesion();
-    return tarjetas;
+    return gasto;
 }
-public void actualizar(Tarjeta g)throws Exception{
+public void actualizar(Gastos g)throws Exception{
     ses.update(g);
     cerrarSesion();
 }
-public void borrar(Tarjeta g)throws Exception{
+public void borrar(Gastos g)throws Exception{
     ses.delete(g);
     cerrarSesion();
 }
