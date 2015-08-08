@@ -39,8 +39,7 @@ public class Tarjeta implements Serializable {
     private String nombre;
     @Column(name = "diaCorte")
     private Integer diaCorte;
-    @OneToMany(mappedBy = "idTarjeta")
-    private List<Gastos> gastosList;
+   
 
     public Tarjeta() {
     }
@@ -72,16 +71,7 @@ public class Tarjeta implements Serializable {
     public void setDiaCorte(Integer diaCorte) {
         this.diaCorte = diaCorte;
     }
-
-    public List<Gastos> getGastosList() {
-        return gastosList;
-    }
-
-    public void setGastosList(List<Gastos> gastosList) {
-        this.gastosList = gastosList;
-    }
-
-    @Override
+   @Override
     public int hashCode() {
         int hash = 0;
         hash += (idTarjeta != null ? idTarjeta.hashCode() : 0);
