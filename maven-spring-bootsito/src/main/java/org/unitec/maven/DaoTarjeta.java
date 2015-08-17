@@ -51,7 +51,8 @@ public void actualizar(Tarjeta g)throws Exception{
     ses.update(g);
     cerrarSesion();
 }
-public void borrar(Tarjeta g)throws Exception{
+public void borrar(Integer id)throws Exception{
+     Tarjeta g = (Tarjeta) ses.createCriteria(Tarjeta.class).add(Restrictions.idEq(id)).uniqueResult();
     ses.delete(g);
     cerrarSesion();
 }

@@ -16,10 +16,6 @@ public class Aplicacion {
     
     public static void main(String[] args) throws Exception{
         SpringApplication.run(Aplicacion.class, args);
-        
-        System.out.println("Un mensaje desde spring boot");
-        AnnotationConfigApplicationContext ctx=new   AnnotationConfigApplicationContext(ConfiguracionBasica.class);  
-        Leer servicioLeer= ctx.getBean(Leer.class);
-        System.out.println(servicioLeer.leer());
+  
     }
 }

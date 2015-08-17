@@ -6,18 +6,17 @@
 package org.unitec.maven;
 
 import java.util.ArrayList;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author T-107
  */
-@RestController
+@Controller
 @RequestMapping("/")
 public class ControladorTarjeta {
 @RequestMapping(value="/tarjeta/{nombre}/{fechaCorte}", method = RequestMethod.POST, headers={"Accept=text/html"})
@@ -36,4 +35,42 @@ public class ControladorTarjeta {
         ArrayList<Tarjeta> tarjetas=dao.buscarTodos();
         return tarjetas;
     }
+     
+    @RequestMapping(value="/tarjeta/{idTarjeta}/{nombre}/{fechaCorte}", method = RequestMethod.PUT, headers = {"Accept=text/html"})
+    @ResponseBody String actuaizar(@PathVariable Integer idTarjeta,@PathVariable String nombre,@PathVariable Integer fechaCorte)throws Exception{
+        
+   DaoTarjeta dao=new DaoTarjeta();
+   
+       Tarjeta t=new Tarjeta();
+    t.setIdTarjeta(idTarjeta);
+    t.setNombre(nombre);
+    t.setDiaCorte(fechaCorte);
+    
+    
+        dao.actualizar(t);
+        
+        return "La tarjeta se actualizo con exito";
+}
+    
+    @RequestMapping(value="/tarjeta/{idTarjeta}", method = RequestMethod.DELETE, headers = {"Accept=text/html"})
+    @ResponseBody String eliminar(@PathVariable Integer idTarjeta)throws Exception{
+        
+   DaoTarjeta dao=new DaoTarjeta();
+        dao.borrar(idTarjeta);
+        
+        return "La tarjeta se Elimino";
+}
+     
+    @RequestMapping(value="/tarjeta/{idTarjeta}", method = RequestMethod.GET, headers = {"Accept=application/json"})
+    @ResponseBody Tarjeta buscarI(@PathVariable Integer idTarjeta)throws Exception{
+        
+   DaoTarjeta dao=new DaoTarjeta();
+   
+    Tarjeta t=(Tarjeta) dao.buscarPorId(idTarjeta);
+        
+        return t;
+}
+    
+    
+    
 }

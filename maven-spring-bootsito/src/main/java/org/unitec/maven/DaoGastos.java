@@ -48,7 +48,8 @@ public void actualizar(Gastos g)throws Exception{
     ses.update(g);
     cerrarSesion();
 }
-public void borrar(Gastos g)throws Exception{
+public void borrar(Integer id)throws Exception{
+    Gastos g = (Gastos) ses.createCriteria(Gastos.class).add(Restrictions.idEq(id)).uniqueResult();
     ses.delete(g);
     cerrarSesion();
 }
